@@ -1,1 +1,36 @@
-{}
+{
+    "error": {
+        "error": "Error"
+    },
+    "login": {
+        "button": "Log in",
+        "email": "Email",
+        "no_account": "Don't have an account?",
+        "password": "Password",
+        "sign_up": "Sign up",
+        "title": "Begin the adventure!"
+    },
+    "modal": {
+        "button": "Close"
+    },
+    "navigation": {
+        "map": "Map",
+        "profile": "Profile",
+        "puzzle": "Puzzles"
+    },
+    "profile": {
+        "logout": "Log out"
+    },
+    "register": {
+        "account_exists": "Already have an accout?",
+        "button": "Join",
+        "email": "Email",
+        "log_in": "Log in",
+        "password": "Password",
+        "password_confirmation": "Confirm password",
+        "success": "Success",
+        "successMessage": "Account has been created. Now you can log in.",
+        "username": "Username",
+        "title": "Create account"
+    }
+}

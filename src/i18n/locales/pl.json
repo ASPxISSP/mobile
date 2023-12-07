@@ -1,1 +1,36 @@
-{}
+{
+    "error": {
+        "error": "Błąd"
+    },
+    "login": {
+        "button": "Zaloguj",
+        "email": "Email",
+        "no_account": "Nie masz konta?",
+        "password": "Hasło",
+        "sign_up": "Zarejestruj się",
+        "title": "Zaczynajmy przygodę!"
+    },
+    "modal": {
+        "button": "Zamknij"
+    },
+    "navigation": {
+        "map": "Mapa",
+        "profile": "Profil",
+        "puzzle": "Rebusy"
+    },
+    "profile": {
+        "logout": "Wyloguj się"
+    },
+    "register": {
+        "account_exists": "Masz już konto?",
+        "button": "Dołącz",
+        "email": "Email",
+        "log_in": "Zaloguj się",
+        "password": "Hasło",
+        "password_confirmation": "Powtórz hasło",
+        "success": "Gratulacje",
+        "successMessage": "Konto zostało utworzone. Teraz możesz się zalogować.",
+        "username": "Nazwa użytkownika",
+        "title": "Utwórz konto"
+    }
+}

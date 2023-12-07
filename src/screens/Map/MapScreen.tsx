@@ -1,10 +1,10 @@
-import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const MapScreen = () => {
     return (
-        <View>
+        <SafeAreaView>
             <Text>Map</Text>
-        </View>
+        </SafeAreaView>
     );
 };
