@@ -19,7 +19,7 @@ export const ProfileScreen = () => {
 
     return (
         <SafeAreaView style={style.container}>
-            <Button styles={style.logout} onPress={handleLogout} title={t('profile.logout')} />
+            <Button styles={style.logout} onPress={handleLogout} text={t('profile.logout')} />
         </SafeAreaView>
     );
 };

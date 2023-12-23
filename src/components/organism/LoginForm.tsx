@@ -52,8 +52,8 @@ export const LoginForm = () => {
     const onSubmit = handleSubmit(async data => {
         try {
             const { refreshToken } = await login(data).unwrap();
-            await getUser().unwrap();
             await AsyncStorage.setItem('refreshToken', refreshToken);
+            await getUser().unwrap();
         } catch (error) {
             return;
         }
@@ -87,7 +87,7 @@ export const LoginForm = () => {
                 <Button
                     isLoading={isLoginLoading || isGetUserLoading}
                     onPress={onSubmit}
-                    title={t('login.button')}
+                    text={t('login.button')}
                     styles={style.loginButton}
                 />
             </View>

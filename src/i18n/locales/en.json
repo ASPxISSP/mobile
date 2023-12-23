@@ -1,6 +1,16 @@
 {
+    "cities": {
+        "description": {
+            "wroclaw": "Wrocław is a city in southwestern Poland and the largest city in the historical region of Silesia. It lies on the banks of the River Oder in the Silesian Lowlands of Central Europe, roughly 40 kilometres from the Sudeten Mountains to the south. As of 2023, the official population of Wrocław is 674,132 making it the third largest city in Poland. Population of Wrocław metropolitan area is around 1.25 million."
+        },
+        "progress": "Progress",
+        "read_more": "Read more",
+        "title": "Let's start",
+        "wrong_url": "URL link is incorrect"
+    },
     "error": {
-        "error": "Error"
+        "error": "Error",
+        "refetch": "Refetch"
     },
     "login": {
         "button": "Log in",
@@ -14,9 +24,9 @@
         "button": "Close"
     },
     "navigation": {
+        "cities": "Cities",
         "map": "Map",
-        "profile": "Profile",
-        "puzzle": "Puzzles"
+        "profile": "Profile"
     },
     "profile": {
         "logout": "Log out"

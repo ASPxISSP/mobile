@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from './api';
 import authReducer from './auth/authSlice';
+import puzzlesReducer from './puzzles/puzzlesSlices';
 
 export const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
-        auth: authReducer
+        auth: authReducer,
+        puzzles: puzzlesReducer
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(api.middleware)
 });

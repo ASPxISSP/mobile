@@ -6,7 +6,7 @@ export const authApi = api.injectEndpoints({
     endpoints: builder => ({
         getUser: builder.query<GetUserResponse, void>({
             query: () => ({
-                url: 'auth/profile'
+                url: 'user/profile'
             })
         }),
         login: builder.mutation<LoginResponse, LoginSchema>({

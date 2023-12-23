@@ -2,23 +2,46 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { CitiesListScreen } from '../screens/CitiesList/CitiesListScreen';
+import { CityScreen } from '../screens/CityScreen.tsx/CityScreen';
 import { MapScreen } from '../screens/Map/MapScreen';
 import { ProfileScreen } from '../screens/Profile/ProfileScreen';
-import { PuzzlesListScreen } from '../screens/PuzzlesList/PuzzlesListScreen';
+import { PuzzleScreen } from '../screens/Puzzle/PuzzleScreen';
+import { City } from '../utils/cities';
 
 export type BottomTabsParamList = {
-    PuzzlesScreen: undefined;
-    MapScreen: undefined;
+    CitiesScreen: undefined;
+    MapScreen: NavigatorScreenParams<CitiesScreenParamList>;
     ProfileScreen: undefined;
 };
 
-export type PuzzlesScreenParamList = {
-    PuzzlesListScreen: undefined;
-    PuzzleDetailsScreen: undefined;
+export type CitiesScreenParamList = {
+    CitiesListScreen: undefined;
+    CityScreen: { city: City };
+    PuzzleScreen: { id: number };
 };
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
+const CitiesStack = createNativeStackNavigator<CitiesScreenParamList>();
+
+const Cities = () => {
+    return (
+        <CitiesStack.Navigator
+            screenOptions={{
+                headerTransparent: true,
+                headerShown: false
+            }}
+        >
+            <CitiesStack.Screen name='CitiesListScreen' component={CitiesListScreen} />
+            <CitiesStack.Screen name='CityScreen' component={CityScreen} />
+            <CitiesStack.Screen name='PuzzleScreen' component={PuzzleScreen} />
+        </CitiesStack.Navigator>
+    );
+};
 
 export const BottomTabs = () => {
     const { colors } = useTheme();
@@ -36,13 +59,13 @@ export const BottomTabs = () => {
             }}
         >
             <Tab.Screen
-                name='PuzzlesScreen'
-                component={PuzzlesListScreen}
+                name='CitiesScreen'
+                component={Cities}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name='extension-puzzle-outline' color={color} size={size} />
+                        <MaterialCommunityIcons name='city-variant-outline' color={color} size={size} />
                     ),
-                    title: t('navigation.puzzle')
+                    title: t('navigation.cities')
                 }}
             />
             <Tab.Screen

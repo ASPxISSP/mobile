@@ -2,13 +2,13 @@ import { ViewStyle } from 'react-native';
 import { Button as PaperButton } from 'react-native-paper';
 
 interface ButtonProps {
-    title: string;
+    text: string;
     isLoading?: boolean;
     styles?: ViewStyle;
     onPress: () => void;
 }
 
-export const Button = ({ title, isLoading, onPress, styles }: ButtonProps) => {
+export const Button = ({ text, isLoading, onPress, styles }: ButtonProps) => {
     return (
         <PaperButton
             loading={isLoading}
@@ -17,7 +17,7 @@ export const Button = ({ title, isLoading, onPress, styles }: ButtonProps) => {
             mode='contained'
             style={styles}
         >
-            {!isLoading && title}
+            {!isLoading && text}
         </PaperButton>
     );
 };

@@ -50,7 +50,7 @@ export const ModalProvider = ({ children }: Props) => {
                             {modalMessage}
                         </Text>
                     </View>
-                    <Button onPress={toggleModalVisibility} title={t('modal.button')} />
+                    <Button onPress={toggleModalVisibility} text={t('modal.button')} />
                 </View>
             </ReactNativeModal>
             {children}
@@ -74,6 +74,7 @@ const styles = (colors: MD3Colors) =>
         message: {
             color: colors.secondary,
             marginBottom: 32,
-            marginHorizontal: 16
+            marginHorizontal: 24,
+            textAlign: 'center'
         }
     });

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,7 +25,7 @@ export const RegisterForm = () => {
         reset,
         formState: { errors }
     } = useForm<RegisterSchema>({
-        defaultValues: { email: '', name: '', password: '', passwordConfirm: '' },
+        defaultValues: { email: '', imageUri: '', name: '', password: '', passwordConfirm: '' },
         resolver: zodResolver(registerSchema)
     });
 
@@ -65,6 +65,22 @@ export const RegisterForm = () => {
 
     return (
         <View style={style.form}>
+            <View style={{ marginHorizontal: 16, marginBottom: 32, marginTop: 16 }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity style={{ marginHorizontal: 4, borderWidth: 4, borderColor: colors.primary }}>
+                        <Image
+                            style={{ width: 100, height: 100 }}
+                            source={{ uri: 'https://zpp-bucket.s3.eu-central-1.amazonaws.com/avatars/pan_puzel.png' }}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ marginHorizontal: 4, borderWidth: 4, borderColor: colors.background }}>
+                        <Image
+                            style={{ width: 100, height: 100 }}
+                            source={{ uri: 'https://zpp-bucket.s3.eu-central-1.amazonaws.com/avatars/pani_puzel.png' }}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
             <FormInput
                 controler={control}
                 label={t('register.username')}
@@ -102,7 +118,7 @@ export const RegisterForm = () => {
                 <Button
                     isLoading={isLoading}
                     onPress={onSubmit}
-                    title={t('register.button')}
+                    text={t('register.button')}
                     styles={style.registerButton}
                 />
             </View>
