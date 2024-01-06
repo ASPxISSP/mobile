@@ -12,8 +12,8 @@ const puzzlesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: builder => {
-        builder.addMatcher(puzzlesApi.endpoints.getPuzzles.matchFulfilled, (state, { payload: { data } }) => {
-            state.puzzles = [...state.puzzles, ...data];
+        builder.addMatcher(puzzlesApi.endpoints.getPuzzles.matchFulfilled, (state, { payload }) => {
+            state.puzzles = payload;
         });
     }
 });

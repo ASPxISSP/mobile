@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
+import { check, PERMISSIONS, request } from 'react-native-permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomTabs } from './BottomTabs';
 import { LoginScreen } from '../screens/Login/LoginScreen';
+import { PermissionsScreen } from '../screens/Permissions/PermissionsScreen';
 import { RegisterScreen } from '../screens/Register/RegisterScreen';
 import { useLazyGetUserQuery, useRefreshTokenMutation } from '../store/auth/authApi';
 import { setRefreshToken } from '../store/auth/authSlice';
@@ -12,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 export type RootStackParamList = {
     BottomTabs: undefined;
     LoginScreen: undefined;
+    PermissionsScreen: undefined;
     RegisterScreen: undefined;
 };
 
@@ -24,7 +28,9 @@ export const Navigation = () => {
     const { isError: isGetMeError } = getUserResult;
     const dispatch = useAppDispatch();
 
+    const [permissions, setPermissions] = useState(true);
     const [authorized, setAuthorized] = useState(false);
+    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('LoginScreen');
 
     useEffect(() => {
         if (!refreshToken) {
@@ -33,6 +39,61 @@ export const Navigation = () => {
         }
         setAuthorized(true);
     }, [refreshToken]);
+
+    useEffect(() => {
+        checkPermissions();
+    }, [authorized]);
+
+    const checkPermissions = async () => {
+        if (Platform.OS === 'ios') {
+            const isLocationWhenInUsePermission = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
+            if (isLocationWhenInUsePermission === 'granted') {
+                handleLocationPermissions(true);
+                return;
+            } else if (isLocationWhenInUsePermission === 'denied') {
+                handleLocationPermissions(true);
+                const response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+                if (response === 'granted') {
+                    handleLocationPermissions(true);
+                    return;
+                }
+            }
+
+            handleLocationPermissions(false);
+        }
+        if (Platform.OS === 'android') {
+            const isLocationPermission = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+            if (isLocationPermission === 'granted') {
+                handleLocationPermissions(true);
+                return;
+            } else if (isLocationPermission === 'denied') {
+                handleLocationPermissions(true);
+                const response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+                if (response === 'granted') {
+                    handleLocationPermissions(true);
+                    return;
+                }
+            }
+
+            handleLocationPermissions(false);
+        }
+    };
+
+    const handleLocationPermissions = (status: boolean) => {
+        if (status) {
+            setPermissions(true);
+            if (authorized) {
+                setInitialRoute('BottomTabs');
+                return;
+            }
+            setInitialRoute('LoginScreen');
+            return;
+        }
+        setPermissions(false);
+        setInitialRoute('PermissionsScreen');
+    };
 
     const handleCheckAuth = async () => {
         const localDeviceToken = await AsyncStorage.getItem('refreshToken');
@@ -62,14 +123,19 @@ export const Navigation = () => {
                 screenOptions={{
                     headerShown: false
                 }}
-                initialRouteName='LoginScreen'
+                initialRouteName={initialRoute}
             >
-                {authorized && (
+                {!permissions && (
+                    <Stack.Group>
+                        <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
+                    </Stack.Group>
+                )}
+                {authorized && permissions && (
                     <Stack.Group>
                         <Stack.Screen name='BottomTabs' component={BottomTabs} />
                     </Stack.Group>
                 )}
-                {!authorized && (
+                {!authorized && permissions && (
                     <Stack.Group>
                         <Stack.Screen name='LoginScreen' component={LoginScreen} />
                         <Stack.Screen name='RegisterScreen' component={RegisterScreen} />

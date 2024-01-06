@@ -31,6 +31,24 @@
     "profile": {
         "logout": "Log out"
     },
+    "puzzle": {
+        "address": "Address",
+        "find_way": "To solve the puzzle find the place shown in the image",
+        "level": "Level",
+        "map": "Map",
+        "solution": "Solution",
+        "solve": "Solve",
+        "success": "Congratulations",
+        "success_message": "The puzzle has been unlocked. You earned {{points}} points.",
+        "hint": "Hint"
+    },
+    "permissions": {
+        "location": "Location",
+        "locationDescription": "We use your location to show your position on the map. Additionally, it helps when unlocking puzzles.",
+        "noPermissions": "No permissions",
+        "openSettings": "Open settings",
+        "reason": "You do not have access to the application because the following permissions are required for it to function properly:"
+    },
     "register": {
         "account_exists": "Already have an accout?",
         "button": "Join",

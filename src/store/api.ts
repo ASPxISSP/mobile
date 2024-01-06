@@ -17,6 +17,6 @@ const baseQuery = fetchBaseQuery({
 
 export const api = createApi({
     baseQuery,
-    tagTypes: [],
+    tagTypes: ['puzzles', 'user'],
     endpoints: () => ({})
 });

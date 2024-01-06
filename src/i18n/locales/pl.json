@@ -31,6 +31,24 @@
     "profile": {
         "logout": "Wyloguj się"
     },
+    "puzzle": {
+        "address": "Adres",
+        "find_way": "Aby rozwiązać rebus znajdź miejsce pokazane na obrazku",
+        "level": "Poziom",
+        "map": "Mapa",
+        "solution": "Rozwiązanie",
+        "solve": "Odgadnij",
+        "success": "Gratulacje",
+        "success_message": "Rebus został odblokowany. Zdobywasz {{points}} punktów.",
+        "hint": "Wskazówka"
+    },
+    "permissions": {
+        "location": "Lokalizacja",
+        "locationDescription": "Używamy Twojej lokalizacji, aby wyświetlać Twoją aktualną pozycję na mapie. Dodatkowo, określenie Twojego położenia pomaga podczas odblokowywania rebusów.",
+        "noPermissions": "Brak uprawnień",
+        "openSettings": "Otwórz ustawienia",
+        "reason": "Nie masz dostępu do aplikacji, ponieważ do jej prawidłowego funkcjonowania potrzebne są następujące zezwolenia:"
+    },
     "register": {
         "account_exists": "Masz już konto?",
         "button": "Dołącz",

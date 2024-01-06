@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { CitiesListScreen } from '../screens/CitiesList/CitiesListScreen';
-import { CityScreen } from '../screens/CityScreen.tsx/CityScreen';
+import { CityScreen } from '../screens/City/CityScreen';
 import { MapScreen } from '../screens/Map/MapScreen';
 import { ProfileScreen } from '../screens/Profile/ProfileScreen';
 import { PuzzleScreen } from '../screens/Puzzle/PuzzleScreen';
@@ -22,7 +22,10 @@ export type BottomTabsParamList = {
 export type CitiesScreenParamList = {
     CitiesListScreen: undefined;
     CityScreen: { city: City };
-    PuzzleScreen: { id: number };
+    PuzzleScreen: {
+        id: number;
+        isSolved: boolean;
+    };
 };
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();

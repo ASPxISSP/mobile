@@ -3,11 +3,13 @@ export interface Puzzle {
     city: string;
     difficulty: 'EASY' | 'MEDIUM' | 'HARD';
     id: number;
+    isSolved: boolean;
     isUnlocked: boolean;
     imageUri: string;
     latitude: number;
     longitude: number;
     solution: string;
+    tip: string;
 }
 
 export interface PuzzleState {
@@ -23,15 +25,8 @@ export interface PuzzlesQueryParams {
     city?: string;
 }
 
-// GET /puzzle
-export interface GetPuzzlesResponse {
-    data: Puzzle[];
-    meta: {
-        page: number;
-        size: number;
-        total: number;
-    };
-}
+// GET /user/puzzles
+export type GetUserPuzzlesResponse = Puzzle[];
 
 // POST /puzzle/id/solve
 export interface SolvePuzzleRequest {

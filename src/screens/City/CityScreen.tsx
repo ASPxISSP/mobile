@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, Linking, NativeScrollEvent, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Text, useTheme } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,7 +8,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { mocks } from './mocks';
 import { ErrorBox } from '../../components/molecules/ErrorBox';
 import { GridView } from '../../components/molecules/GridView';
 import { ModalContext } from '../../context/ModalContext';
@@ -27,14 +26,7 @@ export const CityScreen = () => {
     } = useRoute<RouteProp<CitiesScreenParamList, 'CityScreen'>>();
     const { setModalDetails, toggleModalVisibility } = useContext(ModalContext);
 
-    const [page, setPage] = useState(1);
-
-    const { isLoading, refetch, data, error } = useGetPuzzlesQuery({ city: city.name, page });
-
-    const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent) => {
-        const paddingToBottom = 20;
-        return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
-    };
+    const { isLoading, refetch, data, error } = useGetPuzzlesQuery({ city: city.name });
 
     const handleOpenURL = async () => {
         const supported = await Linking.canOpenURL(city.descriptionLink);
@@ -50,17 +42,7 @@ export const CityScreen = () => {
 
     return (
         <SafeAreaView edges={{ top: 'off' }} style={style.container}>
-            <ScrollView
-                onScroll={({ nativeEvent }) => {
-                    const canUpdatePage =
-                        isCloseToBottom(nativeEvent) && !isLoading && data && page < data.meta.total / data.meta.size;
-
-                    if (canUpdatePage) {
-                        setPage(state => state + 1);
-                    }
-                }}
-                scrollEventThrottle={400}
-            >
+            <ScrollView>
                 <View style={style.mainContainer}>
                     <TouchableOpacity style={style.returnButton} onPress={goBack}>
                         <AntDesign name='arrowleft' color={colors.scrim} size={36} />
@@ -87,11 +69,15 @@ export const CityScreen = () => {
                     </View>
                 </View>
                 <View style={style.listContainer}>
-                    <Text variant='labelLarge'>{`${t('cities.progress')}: 1/20`}</Text>
+                    {data && (
+                        <Text variant='labelLarge'>{`${t('cities.progress')}: ${
+                            data.filter(item => item.isUnlocked).length
+                        }/${data.length}`}</Text>
+                    )}
                     <View style={style.dataList}>
                         {data && (
                             <GridView
-                                data={mocks}
+                                data={data}
                                 renderItem={item => (
                                     <TouchableOpacity
                                         style={{
@@ -99,10 +85,17 @@ export const CityScreen = () => {
                                             borderColor: item.isUnlocked ? colors.surface : colors.primary
                                         }}
                                         disabled={!item.isUnlocked}
-                                        onPress={() => navigate('PuzzleScreen', { id: item.id })}
+                                        onPress={() =>
+                                            navigate('PuzzleScreen', { id: item.id, isSolved: item.isSolved })
+                                        }
                                     >
                                         {item.isUnlocked ? (
-                                            <Image source={{ uri: item.imageUri }} style={style.puzzleImage} />
+                                            <Image
+                                                source={{
+                                                    uri: item.imageUri
+                                                }}
+                                                style={style.puzzleImage}
+                                            />
                                         ) : (
                                             <Octicons name='lock' size={24} color={colors.primary} />
                                         )}
@@ -195,9 +188,9 @@ const styles = (colors: MD3Colors, topInset: number) =>
             borderWidth: 2
         },
         puzzleImage: {
-            width: '80%',
-            height: '80%',
-            resizeMode: 'contain'
+            width: '100%',
+            height: '100%',
+            resizeMode: 'cover'
         },
         indicator: {
             marginVertical: 16

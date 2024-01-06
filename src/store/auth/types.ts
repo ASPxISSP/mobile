@@ -7,6 +7,12 @@ export interface AuthState {
     token: string | null;
 }
 
+// GET /image/avatar
+export interface GetAvatarResponse {
+    name: string;
+    url: string;
+}
+
 // GET /auth/profile
 export interface GetUserResponse {
     id: string;
