@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, useTheme } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
@@ -10,22 +10,31 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ModalContext } from '../../context/ModalContext';
 import { RootStackParamList } from '../../navigation';
 import { RegisterSchema, registerSchema } from '../../schemas/authSchema';
-import { useRegisterMutation } from '../../store/auth/authApi';
+import { useGetAvatarQuery, useRegisterMutation } from '../../store/auth/authApi';
 import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import { Button } from '../atoms/Button';
 import { FormInput } from '../molecules/FormInput';
 
 export const RegisterForm = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [register, { isError, isLoading, isSuccess, error }] = useRegisterMutation();
+    const {
+        data: avatars,
+        isLoading: isAvatarLoading,
+        error: avatarError,
+        refetch: refetchAvatar
+    } = useGetAvatarQuery();
+    const [register, { isLoading: isRegisterLoading, isSuccess: isRegisterSuccess, error: registerError }] =
+        useRegisterMutation();
 
     const {
         control,
         handleSubmit,
         reset,
+        setValue,
+        watch,
         formState: { errors }
     } = useForm<RegisterSchema>({
-        defaultValues: { email: '', name: '', password: '', passwordConfirm: '' },
+        defaultValues: { email: '', imageUri: '', name: '', password: '', passwordConfirm: '' },
         resolver: zodResolver(registerSchema)
     });
 
@@ -35,6 +44,27 @@ export const RegisterForm = () => {
     const { t } = useTranslation();
     const style = styles(colors);
 
+    useEffect(() => {
+        if (isRegisterSuccess) {
+            setModalDetails(t('register.successMessage'), t('register.success'));
+            toggleModalVisibility();
+            navigation.navigate('LoginScreen');
+        }
+    }, [isRegisterSuccess]);
+
+    useEffect(() => {
+        if (registerError) {
+            toggleModalVisibility();
+            setModalDetails(extractErrorMessage(registerError), t('error.error'));
+        }
+    }, [registerError]);
+
+    useEffect(() => {
+        if (avatars && avatars.length > 0) {
+            setValue('imageUri', avatars[0].name);
+        }
+    }, [avatars]);
+
     const onSubmit = handleSubmit(data => {
         try {
             register(data);
@@ -43,20 +73,7 @@ export const RegisterForm = () => {
         }
     });
 
-    useEffect(() => {
-        if (isSuccess) {
-            setModalDetails(t('register.successMessage'), t('register.success'));
-            toggleModalVisibility();
-            navigation.navigate('LoginScreen');
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
-        if (isError && error) {
-            toggleModalVisibility();
-            setModalDetails(extractErrorMessage(error), t('error.error'));
-        }
-    }, [isError, error]);
+    const watchAvatar = watch('imageUri');
 
     const onLoginPress = () => {
         navigation.navigate('LoginScreen');
@@ -65,6 +82,42 @@ export const RegisterForm = () => {
 
     return (
         <View style={style.form}>
+            <View style={{ marginHorizontal: 16, marginBottom: 32, marginTop: 16 }}>
+                <View style={{ flexDirection: 'row' }}>
+                    {isAvatarLoading && (
+                        <View>
+                            <ActivityIndicator animating color={colors.primary} />
+                        </View>
+                    )}
+                    {avatarError && (
+                        <View style={{ alignItems: 'center' }}>
+                            <Text variant='labelLarge'>{t('error.error')}</Text>
+                            <Text variant='bodyLarge' style={{ marginTop: 8, marginBottom: 16 }}>
+                                {extractErrorMessage(avatarError)}
+                            </Text>
+                            <Button onPress={refetchAvatar} text={t('error.refetch')} isLoading={isAvatarLoading} />
+                        </View>
+                    )}
+                    {avatars?.map(item => (
+                        <TouchableOpacity
+                            key={item.url}
+                            onPress={() => setValue('imageUri', item.name)}
+                            style={{
+                                marginHorizontal: 4,
+                                borderWidth: 4,
+                                borderColor: watchAvatar === item.name ? colors.primary : colors.background
+                            }}
+                        >
+                            <Image
+                                style={{ width: 100, height: 100 }}
+                                source={{
+                                    uri: item.url
+                                }}
+                            />
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            </View>
             <FormInput
                 controler={control}
                 label={t('register.username')}
@@ -100,9 +153,9 @@ export const RegisterForm = () => {
             />
             <View style={style.registerButtonContainer}>
                 <Button
-                    isLoading={isLoading}
+                    isLoading={isRegisterLoading}
                     onPress={onSubmit}
-                    title={t('register.button')}
+                    text={t('register.button')}
                     styles={style.registerButton}
                 />
             </View>

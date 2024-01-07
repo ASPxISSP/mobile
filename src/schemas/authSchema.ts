@@ -13,6 +13,7 @@ export const refreshTokenSchema = z.object({
 export const registerSchema = z
     .object({
         email: z.string().min(1, 'Email is required.').email('Invalid email address.'),
+        imageUri: z.string().min(1, 'Image is required'),
         name: z.string().min(1, 'Username is required'),
         password: z
             .string()
