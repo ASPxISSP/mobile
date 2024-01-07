@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Image, Platform, StyleSheet, View } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Text, useTheme } from 'react-native-paper';
@@ -13,6 +14,7 @@ import { INITIAL_REGION } from '../../utils/initialRegion';
 
 export const MapScreen = () => {
     const { refetch, data, isLoading, isError } = useGetPuzzlesQuery(undefined);
+    const { t } = useTranslation();
     const { colors } = useTheme();
     const { navigate } = useNavigation<NativeStackNavigationProp<CitiesScreenParamList>>();
 
@@ -38,7 +40,7 @@ export const MapScreen = () => {
                             zIndex: 10
                         }}
                     >
-                        <Button onPress={refetch} isLoading={isLoading} text='Refetch' />
+                        <Button onPress={refetch} isLoading={isLoading} text={t('map.refetch')} />
                     </View>
                 )}
                 <MapView
@@ -94,7 +96,7 @@ export const MapScreen = () => {
                                     </View>
                                     <View style={style.detailsContainer}>
                                         <Text variant='bodyLarge' style={{ textDecorationLine: 'underline' }}>
-                                            Details
+                                            {t('map.details')}
                                         </Text>
                                     </View>
                                 </View>

@@ -20,6 +20,10 @@
         "sign_up": "Sign up",
         "title": "Begin the adventure!"
     },
+    "map": {
+        "details": "Details",
+        "refetch": "Refetch"
+    },
     "modal": {
         "button": "Close"
     },

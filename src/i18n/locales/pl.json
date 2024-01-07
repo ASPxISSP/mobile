@@ -20,6 +20,10 @@
         "sign_up": "Zarejestruj się",
         "title": "Zaczynajmy przygodę!"
     },
+    "map": {
+        "details": "Szczegóły",
+        "refetch": "Załaduj ponownie"
+    },
     "modal": {
         "button": "Zamknij"
     },
