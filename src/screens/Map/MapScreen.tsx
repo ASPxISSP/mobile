@@ -12,7 +12,7 @@ import { useGetPuzzlesQuery } from '../../store/puzzles/puzzlesApi';
 import { INITIAL_REGION } from '../../utils/initialRegion';
 
 export const MapScreen = () => {
-    const { refetch, data, isLoading, isError } = useGetPuzzlesQuery();
+    const { refetch, data, isLoading, isError } = useGetPuzzlesQuery(undefined);
     const { colors } = useTheme();
     const { navigate } = useNavigation<NativeStackNavigationProp<CitiesScreenParamList>>();
 
