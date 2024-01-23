@@ -12,6 +12,7 @@ import { MapScreen } from '../screens/Map/MapScreen';
 import { ProfileScreen } from '../screens/Profile/ProfileScreen';
 import { PuzzleScreen } from '../screens/Puzzle/PuzzleScreen';
 import { City } from '../utils/cities';
+import React from 'react';
 
 export type BottomTabsParamList = {
     CitiesScreen: undefined;

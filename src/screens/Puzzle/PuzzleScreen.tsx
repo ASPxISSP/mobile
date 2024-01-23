@@ -21,6 +21,7 @@ import { SolutionSchema, solutionSchema } from '../../schemas/puzzleSchema';
 import { useGetPuzzleQuery, useSolvePuzzleMutation } from '../../store/puzzles/puzzlesApi';
 import { checkPointInRadius } from '../../utils/checkPointInRadius';
 import { extractErrorMessage } from '../../utils/extractErrorMessage';
+import React from 'react';
 
 const INITIAL_REGION: Region = {
     latitude: 52.086553,
@@ -226,7 +227,7 @@ export const PuzzleScreen = () => {
                                             styles={{ marginTop: 16 }}
                                             isLoading={isSolvePuzzleLoading}
                                             onPress={onSubmit}
-                                            text={t('puzzle.solve')}
+                                            title={t('puzzle.solve')}
                                         />
                                     </>
                                 ) : (

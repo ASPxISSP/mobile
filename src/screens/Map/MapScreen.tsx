@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CitiesScreenParamList } from '../../navigation/BottomTabs';
 import { useGetPuzzlesQuery } from '../../store/puzzles/puzzlesApi';
 import { INITIAL_REGION } from '../../utils/initialRegion';
+import React from 'react';
 
 export const MapScreen = () => {
     const { refetch, data, error } = useGetPuzzlesQuery();

@@ -14,6 +14,7 @@ import { ModalContext } from '../../context/ModalContext';
 import { CitiesScreenParamList } from '../../navigation/BottomTabs';
 import { useGetPuzzlesQuery } from '../../store/puzzles/puzzlesApi';
 import { extractErrorMessage } from '../../utils/extractErrorMessage';
+import React from 'react';
 
 export const CityScreen = () => {
     const { colors } = useTheme();

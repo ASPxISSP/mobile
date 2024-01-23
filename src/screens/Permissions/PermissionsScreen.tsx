@@ -5,6 +5,7 @@ import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { Button } from '../../components/atoms/Button';
 import { Permission } from '../../components/molecules/Permission';
+import React from 'react';
 
 export const PermissionsScreen = () => {
     const { t } = useTranslation();
@@ -27,7 +28,7 @@ export const PermissionsScreen = () => {
                 />
             </View>
             <Button
-                text={t('permissions.openSettings')}
+                title={t('permissions.openSettings')}
                 onPress={() => Linking.openSettings()}
                 styles={style.settings}
             />

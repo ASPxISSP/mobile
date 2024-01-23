@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
