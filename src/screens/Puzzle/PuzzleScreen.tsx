@@ -127,7 +127,7 @@ export const PuzzleScreen = () => {
                     latitude: position.latitude,
                     longitude: position.longitude,
                     solution: data.solution
-                });
+                }).unwrap();
                 setModalDetails(t('puzzle.success_message', { points: solveResponse?.points }), t('puzzle.success'));
                 toggleModalVisibility();
                 goBack();
