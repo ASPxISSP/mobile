@@ -25,6 +25,7 @@
 		7F024996426F4C40862ED91B /* Nunito-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2B60193E8E149AE8EAE2438 /* Nunito-Medium.ttf */; };
 		7F7AF06C44C94E189B760662 /* Nunito-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3C97CF4CEF449092780E0C /* Nunito-ExtraLightItalic.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		904E84E12B60554E00D10C6F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 904E84E02B60554E00D10C6F /* BootSplash.storyboard */; };
 		90730C8A2B0FDB59008E37F0 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90730C772B0FDB59008E37F0 /* Fontisto.ttf */; };
 		90730C8B2B0FDB59008E37F0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90730C782B0FDB59008E37F0 /* Octicons.ttf */; };
 		90730C8C2B0FDB59008E37F0 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90730C792B0FDB59008E37F0 /* Feather.ttf */; };
@@ -87,6 +88,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = puzzlecity/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86150770EFE74D808C9DE2F4 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-puzzlecity-puzzlecityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-puzzlecity-puzzlecityTests.release.xcconfig"; path = "Target Support Files/Pods-puzzlecity-puzzlecityTests/Pods-puzzlecity-puzzlecityTests.release.xcconfig"; sourceTree = "<group>"; };
+		904E84E02B60554E00D10C6F /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = puzzlecity/BootSplash.storyboard; sourceTree = "<group>"; };
 		90730C772B0FDB59008E37F0 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		90730C782B0FDB59008E37F0 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		90730C792B0FDB59008E37F0 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				904E84E02B60554E00D10C6F /* BootSplash.storyboard */,
 				90730C762B0FDB59008E37F0 /* Fonts */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -382,6 +385,7 @@
 				90730C9A2B0FDB59008E37F0 /* SimpleLineIcons.ttf in Resources */,
 				90730C982B0FDB59008E37F0 /* EvilIcons.ttf in Resources */,
 				90730C8B2B0FDB59008E37F0 /* Octicons.ttf in Resources */,
+				904E84E12B60554E00D10C6F /* BootSplash.storyboard in Resources */,
 				90730C962B0FDB59008E37F0 /* FontAwesome.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				90730C902B0FDB59008E37F0 /* MaterialCommunityIcons.ttf in Resources */,
