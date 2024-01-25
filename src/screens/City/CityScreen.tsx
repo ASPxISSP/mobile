@@ -14,7 +14,6 @@ import { ModalContext } from '../../context/ModalContext';
 import { CitiesScreenParamList } from '../../navigation/BottomTabs';
 import { useGetPuzzlesQuery } from '../../store/puzzles/puzzlesApi';
 import { extractErrorMessage } from '../../utils/extractErrorMessage';
-import React from 'react';
 
 export const CityScreen = () => {
     const { colors } = useTheme();
@@ -186,12 +185,13 @@ const styles = (colors: MD3Colors, topInset: number) =>
             borderRadius: 16,
             margin: 8,
             overflow: 'hidden',
-            borderWidth: 2
+            borderWidth: 2,
+            backgroundColor: 'white'
         },
         puzzleImage: {
             width: '100%',
             height: '100%',
-            resizeMode: 'cover'
+            resizeMode: 'center'
         },
         indicator: {
             marginVertical: 16

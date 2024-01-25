@@ -8,7 +8,7 @@ export const puzzlesApi = api.injectEndpoints({
                 url: `puzzle/${id}`
             })
         }),
-        getPuzzles: builder.query<GetUserPuzzlesResponse, PuzzlesQueryParams | void>({
+        getPuzzles: builder.query<GetUserPuzzlesResponse, PuzzlesQueryParams | undefined>({
             query: params => ({
                 url: 'user/puzzles',
                 params

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Image, Platform, StyleSheet, View } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Text, useTheme } from 'react-native-paper';
@@ -6,13 +7,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image as ImageSvg, Svg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Button } from '../../components/atoms/Button';
 import { CitiesScreenParamList } from '../../navigation/BottomTabs';
 import { useGetPuzzlesQuery } from '../../store/puzzles/puzzlesApi';
 import { INITIAL_REGION } from '../../utils/initialRegion';
 import React from 'react';
 
 export const MapScreen = () => {
-    const { refetch, data, error } = useGetPuzzlesQuery();
+    const { refetch, data, isLoading, isError } = useGetPuzzlesQuery(undefined);
+    const { t } = useTranslation();
     const { colors } = useTheme();
     const { navigate } = useNavigation<NativeStackNavigationProp<CitiesScreenParamList>>();
 
@@ -29,9 +32,18 @@ export const MapScreen = () => {
     return (
         <SafeAreaView edges={['left', 'right']}>
             <View style={style.container}>
-                <View style={{ position: 'absolute', zIndex: 100, width: 128, height: 128, backgroundColor: 'white' }}>
-                    <Text>Refetch</Text>
-                </View>
+                {isError && (
+                    <View
+                        style={{
+                            position: 'absolute',
+                            bottom: 16,
+                            alignSelf: 'center',
+                            zIndex: 10
+                        }}
+                    >
+                        <Button onPress={refetch} isLoading={isLoading} text={t('map.refetch')} />
+                    </View>
+                )}
                 <MapView
                     provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
                     initialRegion={INITIAL_REGION}
@@ -85,7 +97,7 @@ export const MapScreen = () => {
                                     </View>
                                     <View style={style.detailsContainer}>
                                         <Text variant='bodyLarge' style={{ textDecorationLine: 'underline' }}>
-                                            Details
+                                            {t('map.details')}
                                         </Text>
                                     </View>
                                 </View>

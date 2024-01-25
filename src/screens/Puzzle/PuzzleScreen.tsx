@@ -21,7 +21,6 @@ import { SolutionSchema, solutionSchema } from '../../schemas/puzzleSchema';
 import { useGetPuzzleQuery, useSolvePuzzleMutation } from '../../store/puzzles/puzzlesApi';
 import { checkPointInRadius } from '../../utils/checkPointInRadius';
 import { extractErrorMessage } from '../../utils/extractErrorMessage';
-import React from 'react';
 
 const INITIAL_REGION: Region = {
     latitude: 52.086553,
@@ -128,7 +127,7 @@ export const PuzzleScreen = () => {
                     latitude: position.latitude,
                     longitude: position.longitude,
                     solution: data.solution
-                });
+                }).unwrap();
                 setModalDetails(t('puzzle.success_message', { points: solveResponse?.points }), t('puzzle.success'));
                 toggleModalVisibility();
                 goBack();
@@ -227,7 +226,7 @@ export const PuzzleScreen = () => {
                                             styles={{ marginTop: 16 }}
                                             isLoading={isSolvePuzzleLoading}
                                             onPress={onSubmit}
-                                            title={t('puzzle.solve')}
+                                            text={t('puzzle.solve')}
                                         />
                                     </>
                                 ) : (
@@ -286,12 +285,13 @@ const styles = (colors: MD3Colors) =>
             borderRadius: 24,
             marginVertical: 16,
             alignSelf: 'center',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            backgroundColor: 'white'
         },
         image: {
             width: '100%',
             height: '100%',
-            resizeMode: 'cover'
+            resizeMode: 'center'
         },
         levelContainer: {
             width: '100%',

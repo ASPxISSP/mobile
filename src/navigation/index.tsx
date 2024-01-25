@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 import { check, PERMISSIONS, request } from 'react-native-permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
@@ -108,12 +109,19 @@ export const Navigation = () => {
                     }
                     dispatch(setRefreshToken(localDeviceToken));
                     setAuthorized(true);
+                    setTimeout(async () => {
+                        await RNBootSplash.hide({ fade: true });
+                    }, 1000);
                 }
             } catch (error) {
-                return;
+                setTimeout(async () => {
+                    await RNBootSplash.hide({ fade: true });
+                }, 1000);
             }
         } else {
-            return;
+            setTimeout(async () => {
+                await RNBootSplash.hide({ fade: true });
+            }, 1000);
         }
     };
 

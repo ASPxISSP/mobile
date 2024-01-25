@@ -10,7 +10,11 @@ const initialState: PuzzleState = {
 const puzzlesSlice = createSlice({
     name: 'puzzles',
     initialState,
-    reducers: {},
+    reducers: {
+        clearPuzzles: state => {
+            state.puzzles = [];
+        }
+    },
     extraReducers: builder => {
         builder.addMatcher(puzzlesApi.endpoints.getPuzzles.matchFulfilled, (state, { payload }) => {
             state.puzzles = payload;

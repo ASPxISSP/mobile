@@ -1,16 +1,16 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Image, View} from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
+import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SvgXml } from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '../../components/atoms/Button';
+import { Leaderboard } from '../../components/organism/Leaderboard';
+import { useLazyGetUserQuery } from '../../store/auth/authApi';
 import { logout } from '../../store/auth/authSlice';
 import { useAppDispatch } from '../../store/hooks';
-import React, { useEffect } from 'react';
-import { Text, useTheme } from 'react-native-paper';
-import { useLazyGetUserQuery } from '../../store/auth/authApi';
-import { MD3Colors } from 'react-native-paper/lib/typescript/types';
-import { Leaderboard } from '../../components/organism/Leaderboard';
-import { SvgXml } from 'react-native-svg';
 
 export const ProfileScreen = () => {
     const dispatch = useAppDispatch();
@@ -24,13 +24,13 @@ export const ProfileScreen = () => {
         await AsyncStorage.removeItem('refreshToken');
         dispatch(logout());
     };
-    const [ refetchUser, { data }] = useLazyGetUserQuery();
-    
+    const [refetchUser, { data }] = useLazyGetUserQuery();
+
     useEffect(() => {
         refetchUser();
-      },[]);
+    }, []);
 
-      const svgContent = `
+    const svgContent = `
       <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.47 68.75">
       <defs>
         <style>
@@ -46,38 +46,43 @@ export const ProfileScreen = () => {
     </svg>`;
 
     return (
-        <SafeAreaView style={style.container}>
-            <View style={style.top} > 
-            <Image
-                source={{
-                    uri: data?.imageUri,
-                  }}
-                style={style.profileImage}
-            />
-                <View > 
-                <Text  style={style.text} variant='titleLarge'> {data?.name} </Text> 
-                <Text  style={style.text} variant='labelMedium'>  {data?.email} </Text>
-                </View>
-             
-                
-                
-                <View style={style.score}>
-                <View style={style.svgContainer}>
-                    <SvgXml
-                    xml={svgContent}
-                    width="40%"
-                    height="40%"
-                    />
-                </View>
-                <View style={style.scoreTextContainer}>
-                    <Text style={style.text} variant='labelSmall'> SCORE </Text> 
-                    <Text style={style.text} variant='labelSmall'> {'  '} {data?.score} </Text>
-                </View>
+        <SafeAreaView edges={['left', 'right']} style={style.container}>
+            <View style={style.top}>
+                <Image
+                    source={{
+                        uri: data?.imageUri
+                    }}
+                    style={style.profileImage}
+                />
+                <View>
+                    <Text style={style.text} variant='titleLarge'>
+                        {' '}
+                        {data?.name}{' '}
+                    </Text>
+                    <Text style={style.text} variant='labelMedium'>
+                        {' '}
+                        {data?.email}{' '}
+                    </Text>
                 </View>
 
+                <View style={style.score}>
+                    <View style={style.svgContainer}>
+                        <SvgXml xml={svgContent} width='40%' height='40%' />
+                    </View>
+                    <View style={style.scoreTextContainer}>
+                        <Text style={style.text} variant='labelSmall'>
+                            {' '}
+                            SCORE{' '}
+                        </Text>
+                        <Text style={style.text} variant='labelSmall'>
+                            {' '}
+                            {'  '} {data?.score}{' '}
+                        </Text>
+                    </View>
+                </View>
             </View>
             <Leaderboard />
-           
+
             <Button styles={style.logout} onPress={handleLogout} text={t('profile.logout')} />
         </SafeAreaView>
     );
@@ -89,7 +94,7 @@ const styles = (colors: MD3Colors) =>
             flex: 1,
             alignItems: 'center',
             justifyContent: 'space-between',
-            backgroundColor: colors.background,
+            backgroundColor: colors.background
         },
         top: {
             flex: 0.4,
@@ -97,45 +102,45 @@ const styles = (colors: MD3Colors) =>
             flexDirection: 'row',
             backgroundColor: colors.secondary,
             paddingHorizontal: 20,
-            alignItems: 'center', 
+            alignItems: 'center',
             borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
+            borderBottomRightRadius: 20
         },
         profileImage: {
             width: 120,
             height: 190,
             borderRadius: 65,
-            marginLeft: "3%", 
-            marginTop: "40%",
+            marginLeft: '3%',
+            marginTop: '40%',
             backgroundColor: colors.primary
         },
         score: {
-            marginTop: "35%",
+            marginTop: '35%',
             flexDirection: 'row',
             alignItems: 'center',
-            marginLeft: -100,
+            marginLeft: -100
         },
         svgContainer: {
             flex: 1,
-            marginRight: -250, 
+            marginRight: -250
         },
         scoreTextContainer: {
-            flex: 1,
+            flex: 1
         },
         text: {
             color: colors.background,
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'space-between'
         },
         userNameText: {
             color: colors.background,
             textAlign: 'left',
-            alignItems: 'flex-start',
+            alignItems: 'flex-start'
         },
         logout: {
             width: 160,
             marginBottom: 16,
             alignItems: 'center',
-            backgroundColor: colors.secondary,
-        },
+            backgroundColor: colors.secondary
+        }
     });

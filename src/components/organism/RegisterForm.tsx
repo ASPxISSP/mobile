@@ -98,24 +98,27 @@ export const RegisterForm = () => {
                             <Button onPress={refetchAvatar} text={t('error.refetch')} isLoading={isAvatarLoading} />
                         </View>
                     )}
-                    {avatars?.map(item => (
-                        <TouchableOpacity
-                            key={item.url}
-                            onPress={() => setValue('imageUri', item.name)}
-                            style={{
-                                marginHorizontal: 4,
-                                borderWidth: 4,
-                                borderColor: watchAvatar === item.name ? colors.primary : colors.background
-                            }}
-                        >
-                            <Image
-                                style={{ width: 100, height: 100 }}
-                                source={{
-                                    uri: item.url
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {avatars?.map(item => (
+                            <TouchableOpacity
+                                key={item.url}
+                                onPress={() => setValue('imageUri', item.name)}
+                                style={{
+                                    marginHorizontal: 4,
+                                    borderWidth: 4,
+                                    margin: 4,
+                                    borderColor: watchAvatar === item.name ? colors.primary : colors.background
                                 }}
-                            />
-                        </TouchableOpacity>
-                    ))}
+                            >
+                                <Image
+                                    style={{ width: 100, height: 100 }}
+                                    source={{
+                                        uri: item.url
+                                    }}
+                                />
+                            </TouchableOpacity>
+                        ))}
+                    </View>
                 </View>
             </View>
             <FormInput
