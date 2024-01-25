@@ -33,3 +33,11 @@ export interface RefreshTokenResponse {
     accessToken: string;
     refreshToken: string;
 }
+
+// GET /api/leaderboard
+export interface getLeaderboardResponse{
+    id: string;
+    name: string,
+    score: number;
+    imageUri: string;
+}

@@ -1,4 +1,4 @@
-import { GetAvatarResponse, GetUserResponse, LoginResponse, RefreshTokenResponse } from './types';
+import { GetAvatarResponse, GetUserResponse, LoginResponse, RefreshTokenResponse, getLeaderboardResponse } from './types';
 import { LoginSchema, RefreshTokenSchema, RegisterSchema } from '../../schemas/authSchema';
 import { api } from '../api';
 
@@ -40,6 +40,11 @@ export const authApi = api.injectEndpoints({
                     password
                 }
             })
+        }),
+        getLeaderboard: builder.query<getLeaderboardResponse[], void>({
+            query: () => ({
+                url: 'leaderboard'
+            }),
         })
     })
 });
@@ -49,5 +54,6 @@ export const {
     useLazyGetUserQuery,
     useLoginMutation,
     useRefreshTokenMutation,
-    useRegisterMutation
+    useRegisterMutation,
+    useGetLeaderboardQuery
 } = authApi;
